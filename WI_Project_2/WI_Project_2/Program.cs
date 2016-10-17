@@ -14,9 +14,25 @@ namespace WI_Project_2
         {
             var fileName = args.Length > 0 ? args[0] : "friendships.txt";
 
+
             var people = FriendshipController.LoadPeople(fileName);
 
-            foreach(var person in people)
+            int a = 0;
+            foreach (var clique in FriendshipController.GetCliques(people, people[0]))
+            {
+                if (a == 3)
+                    break;
+
+                string cliqueString = "";
+                foreach(var person in clique)
+                {
+                    cliqueString += person.Name;
+                }
+                Console.WriteLine(cliqueString);
+            }
+            Console.Read();
+
+            foreach (var person in people)
             {
                 Console.WriteLine(person.Name + " has " + person.Friends.Count + " friends.");
             }

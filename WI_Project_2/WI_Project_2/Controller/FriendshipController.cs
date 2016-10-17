@@ -34,7 +34,40 @@ namespace WI_Project_2.Controller
                 }
             }
 
+
             return people;
+        }
+
+        public static List<List<Person>> GetCliques (List<Person> people, Person startPerson)
+        {
+            List<List<Person>> cliques = new List<List<Person>>();
+
+            Stack<List<Person>> cliqueStack = new Stack<List<Person>> ();
+            cliqueStack.Push(new List<Person> { startPerson });
+
+            List<List<Person>> processed = new List<List<Person>>();
+
+            while(cliqueStack.Peek() != null)
+            {
+                var C = cliqueStack.Pop();
+                processed.Add(C);
+
+                foreach(var friend in C.Last().Friends)
+                {
+                    var potentialClique = C.Union(new List<Person> { friend }).ToList();
+                    if (IsClique(potentialClique))
+                    {
+                        cliqueStack.Push(potentialClique);
+                    }
+                }
+            }
+
+            return processed.OrderByDescending(c=>c.Count).ToList();
+        }
+
+        public static bool IsClique(List<Person> people)
+        {
+            return people.TrueForAll(p => p.Friends.Intersect(people).Count() == people.Count - 1);
         }
     }
 }
