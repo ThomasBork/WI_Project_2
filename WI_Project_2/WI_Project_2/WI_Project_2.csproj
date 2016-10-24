@@ -44,7 +44,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\FriendshipController.cs" />
+    <Compile Include="Controller\Helper.cs" />
+    <Compile Include="Controller\ReviewController.cs" />
     <Compile Include="Model\Person.cs" />
+    <Compile Include="Model\Review.cs" />
+    <Compile Include="Model\Token.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -10,11 +11,29 @@ namespace WI_Project_2
 {
     class Program
     {
+        public static Stopwatch sw;
+
         static void Main(string[] args)
         {
-            var fileName = args.Length > 0 ? args[0] : "friendships.txt";
+            BayesStuff();
+        }
 
+        static void BayesStuff ()
+        {
+            var fileName = "SentimentTrainingData.txt";
+            sw = new Stopwatch();
+            sw.Start();
+            var reviews = ReviewController.LoadReviews(fileName);
+            Console.WriteLine("Loaded: " + sw.Elapsed.TotalSeconds);
+            sw.Restart();
+            ReviewController.Tokenize(reviews);
+            Console.WriteLine("Tokenized: " + sw.Elapsed.TotalSeconds);
+            Console.Read();
+        }
 
+        static void CliqueStuff ()
+        {
+            var fileName = "friendships.txt";
             var people = FriendshipController.LoadPeople(fileName);
 
             int a = 0;
@@ -24,7 +43,7 @@ namespace WI_Project_2
                     break;
 
                 string cliqueString = "";
-                foreach(var person in clique)
+                foreach (var person in clique)
                 {
                     cliqueString += person.Name;
                 }
@@ -38,7 +57,6 @@ namespace WI_Project_2
             }
 
             Console.WriteLine(fileName);
-            Console.Read();
         }
     }
 }
