@@ -34,7 +34,6 @@ namespace WI_Project_2.Controller
                 }
             }
 
-
             return people;
         }
 

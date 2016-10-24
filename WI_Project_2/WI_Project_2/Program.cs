@@ -25,10 +25,24 @@ namespace WI_Project_2
             sw.Start();
             var reviews = ReviewController.LoadReviews(fileName);
             Console.WriteLine("Loaded: " + sw.Elapsed.TotalSeconds);
+
             sw.Restart();
             ReviewController.Tokenize(reviews);
             Console.WriteLine("Tokenized: " + sw.Elapsed.TotalSeconds);
-            Console.Read();
+
+            sw.Restart();
+            Console.WriteLine("Begin vocabulary");
+            try
+            {
+                var vocabulary = ReviewController.BuildVocabulary(reviews);
+                Console.WriteLine("Vocabulary complete: " + sw.Elapsed.TotalSeconds);
+                Console.Read();
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine("WRONG!");
+                Console.Read();
+            }
         }
 
         static void CliqueStuff ()

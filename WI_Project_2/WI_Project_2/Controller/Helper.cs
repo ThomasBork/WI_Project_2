@@ -15,12 +15,15 @@ namespace WI_Project_2.Controller
 
         public static string RemoveAllChars (string s, char[] removeStrings)
         {
-            var retString = s;
-            foreach(var rem in removeStrings)
+            var sb = new StringBuilder();
+            foreach(var c in s)
             {
-                retString = retString.Replace(rem.ToString(), "");
+                if(!removeStrings.Contains(c))
+                {
+                    sb.Append(c);
+                }
             }
-            return retString;
+            return sb.ToString();
         }
     }
 }
